@@ -93,6 +93,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Livro — memórias que ficam" },
+      { name: "description", content: "Um livro digital de memórias. Elegante, silencioso, feito para folhear com calma." },
+      { property: "og:description", content: "Um livro digital de memórias. Elegante, silencioso, feito para folhear com calma." },
+      { name: "twitter:description", content: "Um livro digital de memórias. Elegante, silencioso, feito para folhear com calma." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/16955565-87c6-484b-9cd3-1b57f6caefbd/id-preview-ea4a5964--f9096b03-4edf-4678-b4fe-1e8cf474afa9.lovable.app-1783106462191.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/16955565-87c6-484b-9cd3-1b57f6caefbd/id-preview-ea4a5964--f9096b03-4edf-4678-b4fe-1e8cf474afa9.lovable.app-1783106462191.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
