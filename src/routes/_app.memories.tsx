@@ -1,30 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Screen } from "@/components/app/Screen";
-import { Header } from "@/components/app/Header";
-import { SearchField } from "@/components/app/SearchField";
-import { Gallery, type GalleryItem } from "@/components/app/Gallery";
+import { AlbumGrid } from "@/components/app/AlbumGrid";
+import { memories } from "@/features/memories/data";
 
 export const Route = createFileRoute("/_app/memories")({
   component: MemoriesScreen,
 });
 
-const items: GalleryItem[] = [
-  { id: "a", title: "Serra da Mantiqueira", caption: "Junho · 2024", ratio: "portrait" },
-  { id: "b", title: "Casa da vovó", caption: "Domingo", ratio: "square" },
-  { id: "c", title: "Cais de Belém", caption: "Verão", ratio: "portrait" },
-  { id: "d", title: "Cozinha à noite", caption: "Rotina", ratio: "landscape" },
-  { id: "e", title: "Praia deserta", caption: "Ago · 2023", ratio: "portrait" },
-  { id: "f", title: "Aniversário de Léo", caption: "5 anos", ratio: "square" },
-];
-
 function MemoriesScreen() {
   return (
-    <Screen>
-      <Header eyebrow="Álbum" title="Memórias" />
-      <div className="mb-6">
-        <SearchField placeholder="Buscar por título, data ou lugar" />
-      </div>
-      <Gallery items={items} />
+    <Screen className="pt-10">
+      <header className="mb-10">
+        <p className="text-[10px] uppercase tracking-[0.28em] text-ink-mute">
+          Álbum
+        </p>
+        <h1 className="mt-3 text-display text-[40px] leading-[1] text-ink">
+          Memórias
+        </h1>
+        <p className="mt-4 max-w-[30ch] text-[14px] leading-relaxed text-ink-soft">
+          Um lugar silencioso para folhear o que já viveu.
+        </p>
+      </header>
+      <AlbumGrid items={memories} />
     </Screen>
   );
 }
