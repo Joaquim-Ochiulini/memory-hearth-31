@@ -27,7 +27,7 @@ function MemoryDetail() {
   const { memory } = Route.useLoaderData();
   const place = getPlace(memory.placeId);
   const persons: Person[] = memory.personIds
-    .map(getPerson)
+    .map((pid: string) => getPerson(pid))
     .filter((p): p is Person => Boolean(p));
 
   return (
