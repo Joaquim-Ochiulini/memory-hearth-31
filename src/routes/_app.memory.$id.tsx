@@ -24,13 +24,14 @@ export const Route = createFileRoute("/_app/memory/$id")({
 });
 
 function MemoryDetail() {
-  const { memory } = Route.useLoaderData();
+  const data = Route.useLoaderData() as { memory: import("@/features/memories/data").Memory };
+  const memory = data.memory;
   const place = getPlace(memory.placeId);
-  const persons: Person[] = memory.personIds.reduce<Person[]>((acc, pid) => {
+  const persons: Person[] = [];
+  for (const pid of memory.personIds) {
     const p = getPerson(pid);
-    if (p) acc.push(p);
-    return acc;
-  }, []);
+    if (p) persons.push(p);
+  }
 
   return (
     <div className="min-h-[100dvh] bg-background pb-24">
