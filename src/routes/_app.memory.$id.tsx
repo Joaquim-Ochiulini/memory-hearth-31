@@ -82,7 +82,7 @@ function MemoryDetail() {
               Com
             </p>
             <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-4">
-              {persons.map((p) => (
+              {persons.map((p: NonNullable<ReturnType<typeof getPerson>>) => (
                 <li key={p!.id}>
                   <Link
                     to="/person/$id"

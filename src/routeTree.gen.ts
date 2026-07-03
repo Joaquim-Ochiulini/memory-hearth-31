@@ -15,6 +15,9 @@ import { Route as AppProfileRouteImport } from './routes/_app.profile'
 import { Route as AppPlacesRouteImport } from './routes/_app.places'
 import { Route as AppPeopleRouteImport } from './routes/_app.people'
 import { Route as AppMemoriesRouteImport } from './routes/_app.memories'
+import { Route as AppPlaceIdRouteImport } from './routes/_app.place.$id'
+import { Route as AppPersonIdRouteImport } from './routes/_app.person.$id'
+import { Route as AppMemoryIdRouteImport } from './routes/_app.memory.$id'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -45,6 +48,21 @@ const AppMemoriesRoute = AppMemoriesRouteImport.update({
   path: '/memories',
   getParentRoute: () => AppRoute,
 } as any)
+const AppPlaceIdRoute = AppPlaceIdRouteImport.update({
+  id: '/place/$id',
+  path: '/place/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPersonIdRoute = AppPersonIdRouteImport.update({
+  id: '/person/$id',
+  path: '/person/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMemoryIdRoute = AppMemoryIdRouteImport.update({
+  id: '/memory/$id',
+  path: '/memory/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
@@ -52,6 +70,9 @@ export interface FileRoutesByFullPath {
   '/people': typeof AppPeopleRoute
   '/places': typeof AppPlacesRoute
   '/profile': typeof AppProfileRoute
+  '/memory/$id': typeof AppMemoryIdRoute
+  '/person/$id': typeof AppPersonIdRoute
+  '/place/$id': typeof AppPlaceIdRoute
 }
 export interface FileRoutesByTo {
   '/memories': typeof AppMemoriesRoute
@@ -59,6 +80,9 @@ export interface FileRoutesByTo {
   '/places': typeof AppPlacesRoute
   '/profile': typeof AppProfileRoute
   '/': typeof AppIndexRoute
+  '/memory/$id': typeof AppMemoryIdRoute
+  '/person/$id': typeof AppPersonIdRoute
+  '/place/$id': typeof AppPlaceIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -68,12 +92,31 @@ export interface FileRoutesById {
   '/_app/places': typeof AppPlacesRoute
   '/_app/profile': typeof AppProfileRoute
   '/_app/': typeof AppIndexRoute
+  '/_app/memory/$id': typeof AppMemoryIdRoute
+  '/_app/person/$id': typeof AppPersonIdRoute
+  '/_app/place/$id': typeof AppPlaceIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/memories' | '/people' | '/places' | '/profile'
+  fullPaths:
+    | '/'
+    | '/memories'
+    | '/people'
+    | '/places'
+    | '/profile'
+    | '/memory/$id'
+    | '/person/$id'
+    | '/place/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/memories' | '/people' | '/places' | '/profile' | '/'
+  to:
+    | '/memories'
+    | '/people'
+    | '/places'
+    | '/profile'
+    | '/'
+    | '/memory/$id'
+    | '/person/$id'
+    | '/place/$id'
   id:
     | '__root__'
     | '/_app'
@@ -82,6 +125,9 @@ export interface FileRouteTypes {
     | '/_app/places'
     | '/_app/profile'
     | '/_app/'
+    | '/_app/memory/$id'
+    | '/_app/person/$id'
+    | '/_app/place/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +178,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppMemoriesRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/place/$id': {
+      id: '/_app/place/$id'
+      path: '/place/$id'
+      fullPath: '/place/$id'
+      preLoaderRoute: typeof AppPlaceIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/person/$id': {
+      id: '/_app/person/$id'
+      path: '/person/$id'
+      fullPath: '/person/$id'
+      preLoaderRoute: typeof AppPersonIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/memory/$id': {
+      id: '/_app/memory/$id'
+      path: '/memory/$id'
+      fullPath: '/memory/$id'
+      preLoaderRoute: typeof AppMemoryIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -141,6 +208,9 @@ interface AppRouteChildren {
   AppPlacesRoute: typeof AppPlacesRoute
   AppProfileRoute: typeof AppProfileRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppMemoryIdRoute: typeof AppMemoryIdRoute
+  AppPersonIdRoute: typeof AppPersonIdRoute
+  AppPlaceIdRoute: typeof AppPlaceIdRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -149,6 +219,9 @@ const AppRouteChildren: AppRouteChildren = {
   AppPlacesRoute: AppPlacesRoute,
   AppProfileRoute: AppProfileRoute,
   AppIndexRoute: AppIndexRoute,
+  AppMemoryIdRoute: AppMemoryIdRoute,
+  AppPersonIdRoute: AppPersonIdRoute,
+  AppPlaceIdRoute: AppPlaceIdRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
