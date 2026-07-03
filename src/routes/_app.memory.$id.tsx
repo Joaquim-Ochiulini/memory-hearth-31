@@ -5,6 +5,7 @@ import {
   getMemory,
   getPlace,
   getPerson,
+  type Person,
 } from "@/features/memories/data";
 import { formatLongDate } from "@/utils/date";
 
@@ -25,9 +26,9 @@ export const Route = createFileRoute("/_app/memory/$id")({
 function MemoryDetail() {
   const { memory } = Route.useLoaderData();
   const place = getPlace(memory.placeId);
-  const persons = memory.personIds
+  const persons: Person[] = memory.personIds
     .map(getPerson)
-    .filter((p): p is NonNullable<ReturnType<typeof getPerson>> => Boolean(p));
+    .filter((p): p is Person => Boolean(p));
 
   return (
     <div className="min-h-[100dvh] bg-background pb-24">
