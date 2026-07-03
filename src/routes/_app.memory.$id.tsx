@@ -26,9 +26,11 @@ export const Route = createFileRoute("/_app/memory/$id")({
 function MemoryDetail() {
   const { memory } = Route.useLoaderData();
   const place = getPlace(memory.placeId);
-  const persons: Person[] = memory.personIds
-    .map((pid: string) => getPerson(pid))
-    .filter((p): p is Person => Boolean(p));
+  const persons: Person[] = memory.personIds.reduce<Person[]>((acc, pid) => {
+    const p = getPerson(pid);
+    if (p) acc.push(p);
+    return acc;
+  }, []);
 
   return (
     <div className="min-h-[100dvh] bg-background pb-24">
