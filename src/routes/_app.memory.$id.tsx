@@ -25,7 +25,9 @@ export const Route = createFileRoute("/_app/memory/$id")({
 function MemoryDetail() {
   const { memory } = Route.useLoaderData();
   const place = getPlace(memory.placeId);
-  const persons = memory.personIds.map(getPerson).filter(Boolean);
+  const persons = memory.personIds
+    .map(getPerson)
+    .filter((p): p is NonNullable<ReturnType<typeof getPerson>> => Boolean(p));
 
   return (
     <div className="min-h-[100dvh] bg-background pb-24">
@@ -82,21 +84,21 @@ function MemoryDetail() {
               Com
             </p>
             <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-4">
-              {persons.map((p: NonNullable<ReturnType<typeof getPerson>>) => (
-                <li key={p!.id}>
+              {persons.map((p) => (
+                <li key={p.id}>
                   <Link
                     to="/person/$id"
-                    params={{ id: p!.id }}
+                    params={{ id: p.id }}
                     className="flex items-center gap-3"
                   >
                     <span className="h-9 w-9 overflow-hidden rounded-full bg-surface-muted">
                       <img
-                        src={p!.avatar}
-                        alt={p!.name}
+                        src={p.avatar}
+                        alt={p.name}
                         className="h-full w-full object-cover"
                       />
                     </span>
-                    <span className="text-[14px] text-ink">{p!.name}</span>
+                    <span className="text-[14px] text-ink">{p.name}</span>
                   </Link>
                 </li>
               ))}
