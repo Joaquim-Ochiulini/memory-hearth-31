@@ -42,7 +42,7 @@ function HomeScreen() {
 
   // Placeholder for "continue reading" — wired up when persistence lands.
   type Resume = { id: string; title: string; cover: string };
-  const resume: Resume | null = null;
+  const resume = null as Resume | null;
 
   return (
     <div className="pb-32">
