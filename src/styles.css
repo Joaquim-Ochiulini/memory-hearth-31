@@ -23,7 +23,7 @@
   --radius-3xl: calc(var(--radius) + 12px);
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -61,36 +61,36 @@
 :root {
   --radius: 0.875rem;
 
-  /* Paper & ink */
-  --background: oklch(0.985 0.006 85);      /* warm ivory */
-  --surface: oklch(1 0 0);                   /* pure card */
-  --surface-muted: oklch(0.965 0.008 85);    /* recessed area */
-  --foreground: oklch(0.22 0.015 55);        /* espresso ink */
-  --ink: oklch(0.22 0.015 55);
-  --ink-soft: oklch(0.42 0.012 60);
-  --ink-mute: oklch(0.58 0.01 65);
+  /* Lumina — paper, ink, brass */
+  --background: oklch(0.968 0.006 75);       /* #F7F5F2 warm paper */
+  --surface: oklch(0.985 0.006 80);          /* #FFFCF8 card */
+  --surface-muted: oklch(0.955 0.008 75);    /* recessed area */
+  --foreground: oklch(0.26 0.012 45);        /* #2B2623 ink */
+  --ink: oklch(0.26 0.012 45);
+  --ink-soft: oklch(0.5 0.008 55);           /* #7A746E */
+  --ink-mute: oklch(0.62 0.008 60);
 
-  --line: oklch(0.9 0.008 80);
-  --line-soft: oklch(0.94 0.006 80);
+  --line: oklch(0.9 0.008 70);               /* #E9E3DB */
+  --line-soft: oklch(0.94 0.006 75);
 
   /* Semantic aliases (shadcn compatibility) */
   --card: var(--surface);
   --card-foreground: var(--foreground);
   --popover: var(--surface);
   --popover-foreground: var(--foreground);
-  --primary: oklch(0.22 0.015 55);
-  --primary-foreground: oklch(0.985 0.006 85);
+  --primary: oklch(0.26 0.012 45);
+  --primary-foreground: oklch(0.985 0.006 80);
   --secondary: var(--surface-muted);
   --secondary-foreground: var(--foreground);
   --muted: var(--surface-muted);
   --muted-foreground: var(--ink-mute);
-  --accent: oklch(0.55 0.09 40);             /* subtle terracotta */
-  --accent-foreground: oklch(0.985 0.006 85);
+  --accent: oklch(0.63 0.075 68);            /* #B08B57 brass */
+  --accent-foreground: oklch(0.985 0.006 80);
   --destructive: oklch(0.52 0.16 27);
-  --destructive-foreground: oklch(0.985 0.006 85);
+  --destructive-foreground: oklch(0.985 0.006 80);
   --border: var(--line);
   --input: var(--line);
-  --ring: oklch(0.55 0.02 60);
+  --ring: oklch(0.63 0.075 68);
 }
 
 .dark {

@@ -78,27 +78,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { name: "theme-color", content: "#f7f4ee" },
-      { title: "Livro — memórias que ficam" },
+      { name: "theme-color", content: "#F7F5F2" },
+      { title: "Lumina — toda lembrança merece uma história" },
       {
         name: "description",
         content:
-          "Um livro digital de memórias. Elegante, silencioso, feito para folhear com calma.",
+          "Lumina é um livro digital de memórias. Elegante, silencioso, feito para preservar histórias.",
       },
-      { property: "og:title", content: "Livro — memórias que ficam" },
+      { property: "og:title", content: "Lumina — toda lembrança merece uma história" },
       {
         property: "og:description",
         content:
-          "Um livro digital de memórias. Elegante, silencioso, feito para folhear com calma.",
+          "Um livro digital de memórias. Elegante, silencioso, feito para preservar histórias.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Livro — memórias que ficam" },
-      { name: "description", content: "Um livro digital de memórias. Elegante, silencioso, feito para folhear com calma." },
-      { property: "og:description", content: "Um livro digital de memórias. Elegante, silencioso, feito para folhear com calma." },
-      { name: "twitter:description", content: "Um livro digital de memórias. Elegante, silencioso, feito para folhear com calma." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/16955565-87c6-484b-9cd3-1b57f6caefbd/id-preview-ea4a5964--f9096b03-4edf-4678-b4fe-1e8cf474afa9.lovable.app-1783106462191.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/16955565-87c6-484b-9cd3-1b57f6caefbd/id-preview-ea4a5964--f9096b03-4edf-4678-b4fe-1e8cf474afa9.lovable.app-1783106462191.png" },
+      { name: "twitter:title", content: "Lumina — toda lembrança merece uma história" },
+      { name: "twitter:description", content: "Um livro digital de memórias. Elegante, silencioso, feito para preservar histórias." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -107,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap",
       },
     ],
   }),
