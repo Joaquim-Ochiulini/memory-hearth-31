@@ -41,7 +41,8 @@ function HomeScreen() {
   const placesPreview = places.slice(0, 3);
 
   // Placeholder for "continue reading" — wired up when persistence lands.
-  const resume: { id: string; title: string; cover: string } | null = null;
+  type Resume = { id: string; title: string; cover: string };
+  const resume: Resume | null = null;
 
   return (
     <div className="pb-32">
