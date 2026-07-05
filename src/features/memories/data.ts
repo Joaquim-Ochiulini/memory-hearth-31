@@ -183,3 +183,91 @@ export function featuredMemory(now = new Date()): {
   else eyebrow = "Uma lembrança recente";
   return { memory: pick.m, eyebrow };
 }
+
+/* ------------------------------------------------------------------ */
+/*  Memory detail — the "chapter" content shown on /memory/$id.        */
+/*  Kept optional so a bare Memory (from a list) still works.          */
+/* ------------------------------------------------------------------ */
+
+export interface GalleryPhoto {
+  id: string;
+  src: string;
+  ratio: "portrait" | "landscape" | "square" | "pano";
+  /** Optional short caption shown in the lightbox. */
+  caption?: string;
+  /** "HH:MM" of the day. */
+  time?: string;
+  /** People visible in this specific photo. */
+  personIds?: string[];
+  /** Small complementary story for this single photo. */
+  story?: string;
+}
+
+export interface TimelineEntry {
+  time: string; // "HH:MM"
+  text: string;
+}
+
+export interface MemoryDetail {
+  story: string[]; // paragraphs
+  gallery: GalleryPhoto[];
+  timeline?: TimelineEntry[];
+}
+
+const detailImg = (seed: string, w: number, h: number) =>
+  `https://picsum.photos/seed/livro-${seed}/${w}/${h}`;
+
+const memoryDetails: Record<string, MemoryDetail> = {
+  "trancoso-verao": {
+    story: [
+      "Chegamos em Trancoso no fim da tarde, com o carro cheio de areia de outra praia e a vontade de não fazer absolutamente nada por alguns dias.",
+      "O mar estava quieto de um jeito raro — sem vento, sem barulho, como se estivesse guardando fôlego para outra coisa. A gente sentou e ficou olhando. Foi só isso.",
+      "No fim do dia, entendi por que voltamos sempre a este lugar: não é a paisagem, é o silêncio que a gente consegue habitar aqui.",
+    ],
+    timeline: [
+      { time: "09:30", text: "Chegamos na praia." },
+      { time: "11:00", text: "Almoçamos peixe grelhado no quiosque." },
+      { time: "15:20", text: "Tiramos esta foto." },
+      { time: "19:00", text: "Voltamos para a pousada devagar." },
+    ],
+    gallery: [
+      { id: "g1", src: detailImg("tr-1", 1600, 2000), ratio: "portrait", time: "09:41", caption: "As primeiras pegadas do dia.", story: "Ninguém tinha chegado ainda. Só a gente e o vento." },
+      { id: "g2", src: detailImg("tr-2", 2000, 900), ratio: "pano", time: "10:12", caption: "A faixa inteira de praia, deserta." },
+      { id: "g3", src: detailImg("tr-3", 1200, 1200), ratio: "square", time: "11:05", caption: "Peixe fresco, limão e cerveja." },
+      { id: "g4", src: detailImg("tr-4", 1600, 2000), ratio: "portrait", time: "15:22" },
+      { id: "g5", src: detailImg("tr-5", 1800, 1200), ratio: "landscape", time: "17:44", caption: "O céu começou a mudar de cor cedo." },
+      { id: "g6", src: detailImg("tr-6", 1200, 1600), ratio: "portrait", time: "18:30", story: "Foi aqui que a Ana disse aquela frase que eu nunca mais esqueci." },
+      { id: "g7", src: detailImg("tr-7", 2000, 900), ratio: "pano", time: "18:52", caption: "O último recorte de luz sobre a água." },
+    ],
+  },
+};
+
+/**
+ * Fallback generator: builds a plausible, elegant chapter for any memory
+ * that doesn't have hand-written detail yet. Deterministic per id.
+ */
+function fallbackDetail(m: Memory): MemoryDetail {
+  const seeds = ["a", "b", "c", "d", "e", "f"];
+  const shapes: GalleryPhoto["ratio"][] = [
+    "portrait", "landscape", "square", "pano", "portrait", "landscape",
+  ];
+  return {
+    story: [
+      m.phrase,
+      "Alguns dias ficam guardados de um jeito estranho: não pelo que aconteceu, mas pela sensação exata do ar naquele momento. Este foi um deles.",
+      "Escrevo isto para não esquecer o pequeno detalhe que só a gente viu.",
+    ],
+    gallery: seeds.map((s, i) => ({
+      id: `${m.id}-${s}`,
+      src: detailImg(`${m.id}-${s}`, 1600, i % 3 === 1 ? 900 : 2000),
+      ratio: shapes[i],
+      time: `${String(9 + i).padStart(2, "0")}:${i % 2 === 0 ? "12" : "48"}`,
+    })),
+  };
+}
+
+export function getMemoryDetail(id: string): MemoryDetail | null {
+  const m = getMemory(id);
+  if (!m) return null;
+  return memoryDetails[id] ?? fallbackDetail(m);
+}
