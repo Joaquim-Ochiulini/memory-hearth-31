@@ -271,3 +271,104 @@ export function getMemoryDetail(id: string): MemoryDetail | null {
   if (!m) return null;
   return memoryDetails[id] ?? fallbackDetail(m);
 }
+
+/* ------------------------------------------------------------------ */
+/*  Places — atlas helpers                                             */
+/* ------------------------------------------------------------------ */
+
+const placeStories: Record<string, string> = {
+  trancoso: "Foi aqui que vivi alguns dos verões mais felizes da minha vida.",
+  rio: "A cidade onde tudo parece caber num único fim de tarde.",
+  lisboa: "As primeiras viagens de adulto, e a sensação de já pertencer.",
+  mantiqueira: "O silêncio das montanhas devolveu algo que eu tinha perdido.",
+  casa: "O lugar onde o tempo aprendeu a andar mais devagar.",
+};
+
+export function getPlaceStory(id: string) {
+  return placeStories[id];
+}
+
+export interface PlacePhoto extends GalleryPhoto {
+  memoryId: string;
+  memoryTitle: string;
+  takenAt: string; // ISO from the memory
+  isVideo?: boolean;
+  isFavorite?: boolean;
+}
+
+export function allPhotosOfPlace(placeId: string): PlacePhoto[] {
+  const mems = memoriesByPlace(placeId);
+  const out: PlacePhoto[] = [];
+  for (const m of mems) {
+    // Cover counts as a photo of the place
+    out.push({
+      id: `${m.id}-cover`,
+      src: m.cover,
+      ratio: m.ratio === "pano" ? "pano" : "portrait",
+      caption: m.phrase,
+      memoryId: m.id,
+      memoryTitle: m.title,
+      takenAt: m.takenAt,
+      personIds: m.personIds,
+    });
+    const detail = getMemoryDetail(m.id);
+    if (detail) {
+      for (const g of detail.gallery) {
+        out.push({
+          ...g,
+          memoryId: m.id,
+          memoryTitle: m.title,
+          takenAt: m.takenAt,
+        });
+      }
+    }
+  }
+  // Deterministic decoration for filters — no backend yet
+  return out.map((p, i) => ({
+    ...p,
+    isFavorite: i % 5 === 2,
+    isVideo: i % 13 === 4,
+  }));
+}
+
+export interface PlaceStats {
+  firstVisit?: string;
+  lastVisit?: string;
+  visitsCount: number;
+  memoryCount: number;
+  photoCount: number;
+  videoCount: number;
+  personCount: number;
+  topPeople: Person[];
+  years: number[];
+}
+
+export function placeStats(placeId: string): PlaceStats {
+  const mems = memoriesByPlace(placeId);
+  const photos = allPhotosOfPlace(placeId);
+  const dates = mems.map((m) => m.takenAt).sort();
+  const counts = new Map<string, number>();
+  for (const m of mems) {
+    for (const pid of m.personIds) {
+      counts.set(pid, (counts.get(pid) ?? 0) + 1);
+    }
+  }
+  const topPeople = [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([id]) => getPerson(id))
+    .filter((p): p is Person => !!p);
+  const years = Array.from(
+    new Set(mems.map((m) => new Date(m.takenAt + "T00:00:00Z").getUTCFullYear())),
+  ).sort((a, b) => b - a);
+  return {
+    firstVisit: dates[0],
+    lastVisit: dates[dates.length - 1],
+    visitsCount: mems.length,
+    memoryCount: mems.length,
+    photoCount: photos.length,
+    videoCount: photos.filter((p) => p.isVideo).length,
+    personCount: counts.size,
+    topPeople,
+    years,
+  };
+}
