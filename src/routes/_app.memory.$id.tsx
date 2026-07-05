@@ -55,7 +55,7 @@ function MemoryDetailScreen() {
 
   const [openPhoto, setOpenPhoto] = useState<GalleryPhoto | null>(null);
   const photoCount = detail.gallery.length + 1; // +1 for cover
-  const videoCount = 0;
+  const videoCount: number = 0;
 
   return (
     <div className="min-h-[100dvh] bg-background pb-32">
