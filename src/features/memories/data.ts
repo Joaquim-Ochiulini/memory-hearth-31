@@ -28,6 +28,9 @@ export interface Place {
   /** Position in the stylised map, 0..1 in both axes. */
   x: number;
   y: number;
+  /** Real-world coordinates for the interactive map. */
+  lat: number;
+  lng: number;
 }
 
 const img = (seed: string, w = 1200, h = 1500) =>
@@ -43,11 +46,11 @@ export const people: Person[] = [
 ];
 
 export const places: Place[] = [
-  { id: "rio", name: "Rio de Janeiro", region: "Brasil", cover: img("rio", 1200, 800), x: 0.42, y: 0.62 },
-  { id: "trancoso", name: "Trancoso", region: "Bahia", cover: img("trancoso", 1200, 800), x: 0.58, y: 0.44 },
-  { id: "lisboa", name: "Lisboa", region: "Portugal", cover: img("lisboa", 1200, 800), x: 0.72, y: 0.28 },
-  { id: "mantiqueira", name: "Serra da Mantiqueira", region: "Minas Gerais", cover: img("serra", 1200, 800), x: 0.34, y: 0.54 },
-  { id: "casa", name: "Casa da vovó", region: "Petrópolis", cover: img("casa", 1200, 800), x: 0.5, y: 0.7 },
+  { id: "rio", name: "Rio de Janeiro", region: "Brasil", cover: img("rio", 1200, 800), x: 0.42, y: 0.62, lat: -22.9068, lng: -43.1729 },
+  { id: "trancoso", name: "Trancoso", region: "Bahia", cover: img("trancoso", 1200, 800), x: 0.58, y: 0.44, lat: -16.591, lng: -39.0954 },
+  { id: "lisboa", name: "Lisboa", region: "Portugal", cover: img("lisboa", 1200, 800), x: 0.72, y: 0.28, lat: 38.7223, lng: -9.1393 },
+  { id: "mantiqueira", name: "Serra da Mantiqueira", region: "Minas Gerais", cover: img("serra", 1200, 800), x: 0.34, y: 0.54, lat: -22.4167, lng: -44.6167 },
+  { id: "casa", name: "Casa da vovó", region: "Petrópolis", cover: img("casa", 1200, 800), x: 0.5, y: 0.7, lat: -22.505, lng: -43.1789 },
 ];
 
 export const memories: Memory[] = [
